@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">DjangoBlog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'contacts' %}">Контакты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Вопросы-ответы</a>
+                </li>
+
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'create' %}">Создать пост</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile-me' %}">{{ request.user.username }}</a>
+                </li>
+                {% endif %}
+
+            </ul>
+            <form class="d-flex" role="search" action="{% url 'search' %}">
+                <input class="form-control me-2" name="q" type="search" placeholder="Search" aria-label="Search"/>
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            <div class="d-flex ms-2 column-gap-2">
+                {% if not request.user.is_authenticated %}
+                <a href="{% url 'registration' %}" class="btn btn-outline-warning">Регистрация</a>
+                <a href="{% url 'login' %}" class="btn btn-outline-success">Авторизация</a>
+                {% else %}
+                <a href="{% url 'logout' %}" class="btn btn-outline-danger">Выход</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</nav>

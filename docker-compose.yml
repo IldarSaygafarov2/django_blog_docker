@@ -1,0 +1,40 @@
+services:
+  django-app:
+    build: .
+    container_name: django_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+#    env_file: .env
+    environment:
+      SECRET_KEY: ${SECRET_KEY}
+      DEBUG: ${DEBUG}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS}
+      POSTGRES_DB: ${PG_DATABASE}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_USER: ${PG_USER}
+      PG_HOST: ${PG_HOST}
+      PG_PORT: ${PG_PORT}
+
+
+  db:
+    image: postgres:18
+    container_name: db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgres/data
+    environment:
+      POSTGRES_DB: ${PG_DATABASE}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_USER: ${PG_USER}
+      PG_HOST: ${PG_HOST}
+      PG_PORT: ${PG_PORT}
+
+
+volumes:
+  pg_data:
+
+
+

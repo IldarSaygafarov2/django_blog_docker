@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ user.username }}
+{% endblock %}
+
+{% block content %}
+<ul class="list-group list-group-action">
+    <li class="list-group-item list-group-item-action"><b>Username: </b>{{ user.username }}</li>
+    <li class="list-group-item list-group-item-action"><b>First Name: </b>{{ user.first_name }}</li>
+    <li class="list-group-item list-group-item-action"><b>Email: </b>{{ user.email }}</li>
+    <li class="list-group-item list-group-item-action"><b>Registration date: </b>{{ user.date_joined }}</li>
+    <li class="list-group-item list-group-item-action"><b>Total likes: </b>{{ total_likes }}</li>
+    <li class="list-group-item list-group-item-action"><b>Total dislikes: </b>{{ total_dislikes }}</li>
+    <li class="list-group-item list-group-item-action"><b>Total comments: </b>{{ total_comments }}</li>
+    <li class="list-group-item list-group-item-action"><b>Total views: </b>{{ total_views }}</li>
+</ul>
+<div class="row row-gap-4 my-4">
+    {% for post in posts %}
+    <div class="col-4">{% include 'components/_card.html' %}</div>
+    {% endfor %}
+</div>
+{% include 'components/_pagination.html' %}
+{% endblock %}

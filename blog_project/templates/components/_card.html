@@ -1,0 +1,39 @@
+<div class="card">
+    {% if post.preview %}
+    <img src="{{ post.preview.url }}" class="card-img-top" alt="...">
+    {% else %}
+    <img src="https://tse4.mm.bing.net/th/id/OIP.OJDIpB1TiqCk5MY1UK-OqwHaE8?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3"
+         class="card-img-top" alt="...">
+    {% endif %}
+
+    <div class="card-body">
+        <h5 class="card-title">{{ post.name }}</h5>
+        <p class="card-text">{{ post.short_description }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <b>Категория: </b>
+            <a href="{{ post.category.get_absolute_url }}">{{ post.category.name }}</a>
+        </li>
+        <li class="list-group-item">
+            <b>Автор: </b>
+            {% if request.user == post.author %}
+            <a href="{% url 'profile-me' %}">{{ post.author }}</a>
+            {% else %}
+            <a href="{% url 'author-profile' post.author.username %}">{{ post.author }}</a>
+            {% endif %}
+        </li>
+        <li class="list-group-item">
+            <b>Кол-во просмотров: </b>
+            {{ post.views }}
+        </li>
+        <li class="list-group-item">
+            <b>Дата публикации: </b>
+            {{ post.created_at }}
+        </li>
+    </ul>
+    <div class="card-body">
+        <a href="{% url 'post-detail' post.pk %}" class="card-link">Подробнее</a>
+
+    </div>
+</div>
